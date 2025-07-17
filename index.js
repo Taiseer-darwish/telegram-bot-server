@@ -1,9 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const app = express();
 app.use(express.json());
+require('dotenv').config();
 
-const BOT_TOKEN = '7727359959:AAHm4z9KNLlPpVu6HyloOwQ5A222QuwyaxA';
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const FIXED_CODE = '889797';
 
 app.post('/send-code', async (req, res) => {
@@ -12,7 +14,7 @@ app.post('/send-code', async (req, res) => {
   if (!chatId) return res.status(400).send('chatId is required');
 
   try {
-    await axios.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    await axios.post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
       chat_id: chatId,
       text: `كود الدفع الخاص بك هو: ${FIXED_CODE}`
     });
